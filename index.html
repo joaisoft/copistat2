@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subir archivo</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #f4f7fb, #e9eef7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .form-wrapper {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .upload-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 32px 24px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    .upload-card h1 {
+      font-size: 1.8rem;
+      color: #111827;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .upload-card p {
+      font-size: 0.95rem;
+      color: #6b7280;
+      text-align: center;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      background-color: #f9fafb;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus,
+    input[type="file"]:focus {
+      outline: none;
+      border-color: #2563eb;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .file-box {
+      border: 2px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 18px;
+      background: #f8fbff;
+      transition: 0.3s ease;
+    }
+
+    .file-box:hover {
+      border-color: #2563eb;
+      background: #f0f7ff;
+    }
+
+    .file-help {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .submit-btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: white;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.22);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: #6b7280;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 600px) {
+      .upload-card {
+        padding: 24px 18px;
+        border-radius: 16px;
+      }
+
+      .upload-card h1 {
+        font-size: 1.5rem;
+      }
+
+      .upload-card p {
+        font-size: 0.9rem;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      textarea,
+      input[type="file"] {
+        font-size: 0.92rem;
+      }
+
+      .submit-btn {
+        font-size: 0.95rem;
+        padding: 13px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-wrapper">
+    <div class="upload-card">
+
+      <form
+        action="https://joaisoft20250.app.n8n.cloud/webhook-test/c363b159-837a-437d-96bd-408158fd312d"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+
+        <div class="form-group">
+          <label for="archivo">Archivo</label>
+          <div class="file-box">
+            <input type="file" id="archivo" name="archivo" required />
+            <div class="file-help">Selecciona el archivo que quieres enviar.</div>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Enviar archivo</button>
+      </form>
+
+      <div class="footer-note">
+        Este formulario envía los datos por POST con <strong>multipart/form-data</strong>.
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
