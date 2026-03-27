@@ -1,199 +1,1794 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Subir archivo</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Copistat | Gestión inteligente de documentos</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #f4f7fb, #e9eef7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .form-wrapper {
-      width: 100%;
-      max-width: 500px;
-    }
-
-    .upload-card {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 32px 24px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
-      border: 1px solid #e5e7eb;
-    }
-
-    .upload-card h1 {
-      font-size: 1.8rem;
-      color: #111827;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .upload-card p {
-      font-size: 0.95rem;
-      color: #6b7280;
-      text-align: center;
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #374151;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    textarea,
-    input[type="file"] {
-      width: 100%;
-      border: 1px solid #d1d5db;
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
-      background-color: #f9fafb;
-    }
-
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    textarea:focus,
-    input[type="file"]:focus {
-      outline: none;
-      border-color: #2563eb;
-      background-color: #ffffff;
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 110px;
-    }
-
-    .file-box {
-      border: 2px dashed #cbd5e1;
-      border-radius: 14px;
-      padding: 18px;
-      background: #f8fbff;
-      transition: 0.3s ease;
-    }
-
-    .file-box:hover {
-      border-color: #2563eb;
-      background: #f0f7ff;
-    }
-
-    .file-help {
-      margin-top: 8px;
-      font-size: 0.85rem;
-      color: #6b7280;
-    }
-
-    .submit-btn {
-      width: 100%;
-      border: none;
-      border-radius: 12px;
-      padding: 14px 18px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: white;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.22);
-    }
-
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-
-    .footer-note {
-      margin-top: 16px;
-      font-size: 0.8rem;
-      color: #6b7280;
-      text-align: center;
-      line-height: 1.4;
-    }
-
-    @media (max-width: 600px) {
-      .upload-card {
-        padding: 24px 18px;
-        border-radius: 16px;
+    <style>
+      :root {
+        --primary: #0f172a;
+        --secondary: #1e293b;
+        --accent: #f59e0b;
+        --accent-dark: #d97706;
+        --light: #f8fafc;
+        --muted: #64748b;
+        --border: #e2e8f0;
+        --white: #ffffff;
+        --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+        --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.06);
+        --radius: 22px;
+        --success: #16a34a;
+        --success-dark: #15803d;
+        --danger: #dc2626;
       }
 
-      .upload-card h1 {
-        font-size: 1.5rem;
+      * {
+        box-sizing: border-box;
       }
 
-      .upload-card p {
-        font-size: 0.9rem;
+      html {
+        scroll-behavior: smooth;
       }
 
-      input[type="text"],
-      input[type="email"],
-      textarea,
-      input[type="file"] {
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--secondary);
+        text-align: justify;
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(245, 158, 11, 0.1),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at top right,
+            rgba(59, 130, 246, 0.1),
+            transparent 28%
+          ),
+          var(--light);
+      }
+
+      .navbar {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.85);
+        border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      }
+
+      .navbar-brand img {
+        height: 48px;
+        width: auto;
+        border-radius: 12px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .nav-link {
+        color: var(--secondary);
+        font-weight: 500;
+      }
+
+      .nav-link:hover {
+        color: var(--accent-dark);
+      }
+
+      .navbar-brand img {
+        height: 44px;
+        width: auto;
+        display: block;
+        object-fit: contain;
+      }
+
+      .btn-brand {
+        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+        color: white;
+        border: none;
+        padding: 0.85rem 1.4rem;
+        border-radius: 999px;
+        font-weight: 700;
+        box-shadow: 0 12px 24px rgba(245, 158, 11, 0.25);
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .btn-brand:hover {
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 16px 32px rgba(245, 158, 11, 0.3);
+      }
+
+      .btn-outline-brand {
+        border: 1px solid var(--border);
+        background: white;
+        color: var(--primary);
+        padding: 0.85rem 1.4rem;
+        border-radius: 999px;
+        font-weight: 700;
+        transition: all 0.25s ease;
+      }
+
+      .btn-outline-brand:hover {
+        border-color: var(--accent);
+        color: var(--accent-dark);
+        transform: translateY(-2px);
+      }
+
+      .hero {
+        padding: 7rem 0 4rem;
+        min-height: 92vh;
+        display: flex;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.45rem 0.9rem;
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        color: var(--muted);
         font-size: 0.92rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+        box-shadow: var(--shadow-soft);
       }
 
-      .submit-btn {
+      .hero h1 {
+        font-size: clamp(2.4rem, 5vw, 4.8rem);
+        line-height: 1.05;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        color: var(--primary);
+        margin-bottom: 1.25rem;
+      }
+
+      .hero h1 span {
+        color: var(--accent-dark);
+      }
+
+      .hero p.lead {
+        font-size: 1.12rem;
+        color: var(--muted);
+        max-width: 700px;
+        margin-bottom: 2rem;
+      }
+
+      .hero-visual {
+        margin-top: 2rem;
+      }
+
+      .hero-visual img {
+        width: 100%;
+        max-width: 620px;
+        display: block;
+        border-radius: 26px;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+        object-fit: cover;
+      }
+
+      .hero-visual-caption {
+        margin-top: 0.85rem;
         font-size: 0.95rem;
-        padding: 13px 16px;
+        color: var(--muted);
+        font-weight: 500;
       }
-    }
-  </style>
-</head>
-<body>
 
-  <div class="form-wrapper">
-    <div class="upload-card">
+      .form-logo-wrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+      }
 
-      <form
-        action="https://joaisoft20250.app.n8n.cloud/webhook/c363b159-837a-437d-96bd-408158fd312d"
-        method="POST"
-        enctype="multipart/form-data"
-      >
+      .form-logo {
+        width: 100%;
+        max-width: 360px;
+        height: auto;
+        display: block;
+        border-radius: 16px;
+        box-shadow: var(--shadow-soft);
+      }
 
-        <div class="form-group">
-          <label for="archivo">Archivo</label>
-          <div class="file-box">
-            <input type="file" id="archivo" name="archivo" required />
-            <div class="file-help">Selecciona el archivo que quieres enviar.</div>
+      .section {
+        padding: 5rem 0;
+      }
+
+      .section-title {
+        font-size: clamp(1.8rem, 3vw, 2.8rem);
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        letter-spacing: -0.03em;
+      }
+
+      .section-subtitle {
+        color: var(--muted);
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .feature-card,
+      .step-card,
+      .benefit-card {
+        background: rgba(255, 255, 255, 0.85);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 1.6rem;
+        box-shadow: var(--shadow-soft);
+        height: 100%;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .feature-card:hover,
+      .step-card:hover,
+      .benefit-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow);
+      }
+
+      .icon-wrap {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          135deg,
+          rgba(245, 158, 11, 0.14),
+          rgba(59, 130, 246, 0.1)
+        );
+        color: var(--accent-dark);
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+      }
+
+      .feature-card h3,
+      .step-card h3,
+      .benefit-card h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 0.7rem;
+      }
+
+      .feature-card p,
+      .step-card p,
+      .benefit-card p {
+        color: var(--muted);
+        margin-bottom: 0;
+      }
+
+      .step-number {
+        display: inline-flex;
+        width: 42px;
+        height: 42px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        font-weight: 800;
+        margin-bottom: 1rem;
+      }
+
+      .stats-box {
+        background: linear-gradient(135deg, var(--primary), #111827);
+        color: white;
+        border-radius: 30px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        height: 100%;
+      }
+
+      .stats-box h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .stat-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.95rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .stat-item:last-child {
+        border-bottom: none;
+      }
+
+      .stat-item strong {
+        font-size: 1.4rem;
+        font-weight: 800;
+      }
+
+      .cta-section {
+        padding: 5rem 0 6rem;
+      }
+
+      .cta-box {
+        background: linear-gradient(135deg, #ffffff, #fff7ed);
+        border: 1px solid rgba(245, 158, 11, 0.18);
+        border-radius: 32px;
+        padding: 2.2rem;
+        box-shadow: var(--shadow);
+      }
+
+      .registro-embed {
+        width: 100%;
+      }
+
+      .registro-side {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .registro-container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background-color: #ffffff;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+        border: 1px solid var(--border);
+        position: relative;
+      }
+
+      .registro-info {
+        background: linear-gradient(135deg, #0f172a, #1e3a8a);
+        color: #ffffff;
+        padding: 48px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .registro-info .badge-soft {
+        display: inline-block;
+        width: fit-content;
+        background-color: rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+      }
+
+      .registro-info h2 {
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+        line-height: 1.15;
+        margin-bottom: 16px;
+        font-weight: 800;
+      }
+
+      .registro-info p {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 0;
+        max-width: 460px;
+      }
+
+      .registro-card {
+        padding: 40px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffffff;
+        position: relative;
+      }
+
+      .registro-form {
+        width: 100%;
+        max-width: 420px;
+        transition:
+          opacity 0.35s ease,
+          transform 0.35s ease;
+      }
+
+      .registro-form.hidden {
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+      }
+
+      .form-group {
+        margin-bottom: 18px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .form-group input {
+        width: 100%;
+        height: 52px;
+        border: 1px solid #d1d5db;
+        border-radius: 14px;
+        padding: 0 16px;
+        font-size: 1rem;
+        outline: none;
+        transition: all 0.25s ease;
+        background-color: #f9fafb;
+      }
+
+      .form-group input::placeholder {
+        color: #9ca3af;
+      }
+
+      .form-group input:focus {
+        border-color: #2563eb;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+      }
+
+      .btn-registro {
+        width: 100%;
+        height: 54px;
+        border: none;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          opacity 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .btn-registro:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(37, 99, 235, 0.25);
+      }
+
+      .btn-registro:disabled {
+        cursor: not-allowed;
+        opacity: 0.85;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .btn-loader {
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        display: none;
+      }
+
+      .btn-registro.loading .btn-loader {
+        display: inline-block;
+      }
+
+      .btn-registro.loading .btn-text {
+        opacity: 0.95;
+      }
+
+      .form-feedback {
+        min-height: 26px;
+        margin-top: 14px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .form-feedback.error {
+        color: var(--danger);
+      }
+
+      .success-box {
+        position: absolute;
+        inset: 0;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.96);
+        transition: all 0.4s ease;
+      }
+
+      .success-box.show {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+      }
+
+      .success-content {
+        text-align: center;
+        max-width: 340px;
+      }
+
+      .checkmark-wrap {
+        width: 110px;
+        height: 110px;
+        margin: 0 auto 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          rgba(22, 163, 74, 0.1),
+          rgba(34, 197, 94, 0.16)
+        );
+        box-shadow: 0 18px 35px rgba(22, 163, 74, 0.18);
+        animation: popIn 0.45s ease;
+      }
+
+      .checkmark {
+        width: 64px;
+        height: 64px;
+        display: block;
+      }
+
+      .checkmark-circle {
+        stroke: #22c55e;
+        stroke-width: 5;
+        fill: none;
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        animation: drawCircle 0.6s ease forwards;
+      }
+
+      .checkmark-check {
+        stroke: #16a34a;
+        stroke-width: 6;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        animation: drawCheck 0.45s ease 0.45s forwards;
+      }
+
+      .success-content h3 {
+        font-size: 1.55rem;
+        font-weight: 800;
+        color: var(--success-dark);
+        margin-bottom: 10px;
+      }
+
+      .success-content p {
+        color: var(--muted);
+        margin-bottom: 0;
+        line-height: 1.6;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes drawCircle {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes drawCheck {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes popIn {
+        0% {
+          transform: scale(0.7);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 991.98px) {
+        .hero {
+          padding-top: 6rem;
+          min-height: auto;
+        }
+
+        .navbar-collapse {
+          background: white;
+          margin-top: 1rem;
+          padding: 1rem;
+          border-radius: 18px;
+          border: 1px solid var(--border);
+        }
+
+        .registro-container {
+          grid-template-columns: 1fr;
+        }
+
+        .registro-info,
+        .registro-card {
+          padding: 36px 28px;
+        }
+
+        .form-logo {
+          max-width: 300px;
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .hero {
+          text-align: center;
+          padding: 6.2rem 0 3rem;
+        }
+
+        .hero .d-flex {
+          justify-content: center;
+        }
+
+        .navbar-brand img {
+          height: 40px;
+        }
+
+        .section {
+          padding: 4rem 0;
+        }
+
+        .cta-box {
+          padding: 1.6rem;
+        }
+
+        .registro-info,
+        .registro-card {
+          padding: 28px 20px;
+        }
+
+        .checkmark-wrap {
+          width: 95px;
+          height: 95px;
+        }
+
+        .checkmark {
+          width: 54px;
+          height: 54px;
+        }
+
+        .hero-visual {
+          margin-top: 1.5rem;
+        }
+
+        .hero-visual img {
+          max-width: 100%;
+        }
+
+        .form-logo-wrap {
+          margin-bottom: 1rem;
+        }
+
+        .form-logo {
+          max-width: 250px;
+        }
+      }
+
+      .tratamientoDatos {
+        margin-top: 10px;
+        text-align: justify;
+      }
+
+      .producto-card {
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid var(--border);
+        border-radius: 30px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .producto-imagen-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #ffffff, #fff7ed);
+        border: 1px solid rgba(245, 158, 11, 0.18);
+        border-radius: 24px;
+        padding: 1.5rem;
+        min-height: 100%;
+      }
+
+      .producto-imagen {
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        display: block;
+        object-fit: contain;
+      }
+
+      .producto-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.45rem 0.95rem;
+        border-radius: 999px;
+        background: rgba(245, 158, 11, 0.12);
+        color: var(--accent-dark);
+        font-size: 0.92rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .producto-title {
+        font-size: clamp(2rem, 3vw, 3rem);
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -0.03em;
+        margin-bottom: 1rem;
+      }
+
+      .producto-texto {
+        color: var(--muted);
+        font-size: 1.03rem;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+      }
+
+      .producto-lista {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.8rem 0;
+      }
+
+      .producto-lista li {
+        position: relative;
+        padding-left: 1.8rem;
+        margin-bottom: 0.9rem;
+        color: var(--secondary);
+        font-weight: 500;
+      }
+
+      .producto-lista li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--success);
+        font-weight: 800;
+      }
+
+      .producto-precio-box {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 1rem 1.5rem;
+        margin-bottom: 1.5rem;
+        padding: 1.2rem 1.4rem;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #fff7ed, #ffffff);
+        border: 1px solid rgba(245, 158, 11, 0.18);
+      }
+
+      .producto-precio-label {
+        font-size: 0.95rem;
+        color: var(--muted);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .producto-precio {
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1;
+        font-weight: 800;
+        color: var(--accent-dark);
+      }
+
+      .producto-nota {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin-bottom: 0;
+      }
+
+      .producto-acciones {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      @media (max-width: 767.98px) {
+        .producto-card {
+          padding: 1.25rem;
+        }
+
+        .producto-imagen-wrap {
+          padding: 1rem;
+        }
+
+        .producto-acciones {
+          justify-content: center;
+        }
+
+        .producto-precio-box {
+          justify-content: center;
+          text-align: center;
+        }
+      }
+
+      .contacto-box {
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid var(--border);
+        border-radius: 30px;
+        padding: 2.2rem;
+        box-shadow: var(--shadow);
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .contacto-intro {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .contacto-intro h2 {
+        font-size: clamp(2rem, 3vw, 2.8rem);
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 0.8rem;
+        letter-spacing: -0.03em;
+      }
+
+      .contacto-intro p {
+        color: var(--muted);
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      .contacto-card {
+        position: relative;
+      }
+
+      .contacto-form {
+        transition:
+          opacity 0.35s ease,
+          transform 0.35s ease;
+      }
+
+      .contacto-form.hidden {
+        opacity: 0;
+        transform: translateY(10px);
+        pointer-events: none;
+      }
+
+      .contacto-form .form-group {
+        margin-bottom: 1.2rem;
+      }
+
+      .contacto-form label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .contacto-form input,
+      .contacto-form textarea {
+        width: 100%;
+        border: 1px solid #d1d5db;
+        border-radius: 16px;
+        padding: 14px 16px;
+        font-size: 1rem;
+        outline: none;
+        transition: all 0.25s ease;
+        background-color: #f9fafb;
+      }
+
+      .contacto-form input {
+        height: 54px;
+      }
+
+      .contacto-form textarea {
+        min-height: 180px;
+        resize: vertical;
+      }
+
+      .contacto-form input::placeholder,
+      .contacto-form textarea::placeholder {
+        color: #9ca3af;
+      }
+
+      .contacto-form input:focus,
+      .contacto-form textarea:focus {
+        border-color: #2563eb;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+      }
+
+      .contacto-acciones {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+      }
+
+      @media (max-width: 767.98px) {
+        .contacto-box {
+          padding: 1.4rem;
+        }
+      }
+
+      .footer-pro {
+        background: linear-gradient(135deg, #0b1220, #111827);
+        color: rgba(255, 255, 255, 0.86);
+        padding: 3.2rem 0 1.4rem;
+        margin-top: 2rem;
+      }
+
+      .footer-top {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        gap: 2rem;
+        align-items: start;
+      }
+
+      .footer-brand {
+        max-width: 520px;
+      }
+
+      .footer-logos {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.2rem;
+      }
+
+      .footer-logo-box {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 0.6rem 0.8rem;
+        min-height: 74px;
+      }
+
+      .footer-logo-box img {
+        display: block;
+        height: 42px;
+        width: auto;
+        max-width: 180px;
+        object-fit: contain;
+      }
+
+      .footer-brand h3,
+      .footer-links h4,
+      .footer-producto h4 {
+        color: #ffffff;
+        font-size: 1.05rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+      }
+
+      .footer-brand p,
+      .footer-links p,
+      .footer-producto p {
+        color: rgba(255, 255, 255, 0.72);
+        line-height: 1.7;
+        margin-bottom: 0;
+      }
+
+      .footer-links ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.7rem;
+      }
+
+      .footer-links a,
+      .footer-bottom a,
+      .footer-producto a {
+        color: #fbbf24;
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .footer-links a:hover,
+      .footer-bottom a:hover,
+      .footer-producto a:hover {
+        color: #ffffff;
+      }
+
+      .footer-producto-card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 1.2rem;
+      }
+
+      .footer-divider {
+        border: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        margin: 2rem 0 1.2rem;
+      }
+
+      .footer-bottom {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: center;
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.68);
+      }
+
+      .footer-bottom strong {
+        color: #ffffff;
+      }
+
+      @media (max-width: 991.98px) {
+        .footer-top {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-brand {
+          max-width: 100%;
+        }
+      }
+
+      @media (max-width: 767.98px) {
+        .footer-pro {
+          padding: 2.5rem 0 1.2rem;
+        }
+
+        .footer-bottom {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .footer-logos {
+          justify-content: center;
+        }
+
+        .footer-logo-box {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-3" href="#inicio">
+          <img src="copistat2.png" alt="Logo de Copistat" />
+        </a>
+
+        <button
+          class="navbar-toggler border-0 shadow-none"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#menuCopistat"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menuCopistat">
+          <ul
+            class="navbar-nav ms-auto me-lg-4 mb-3 mb-lg-0 align-items-lg-center gap-lg-2"
+          >
+            <li class="nav-item">
+              <a class="nav-link" href="#que-es">Qué es</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#funciona">Cómo funciona</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#producto">Tarjeta Copistat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#ventajas">Ventajas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contacto">Contacto</a>
+            </li>
+          </ul>
+          <a href="#imagen" class="btn btn-brand">Obtener Copistat</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero" id="inicio">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <h1>
+              La forma simple de <span>gestionar documentos</span> sin saturar
+              el correo.
+            </h1>
+            <p class="lead">
+              Copistat es una herramienta gratuita pensada para mejorar la
+              eficiencia en el entorno laboral. Permite enviar documentos a
+              impresión de forma rápida y sencilla mediante
+              <strong>NFC</strong> y <strong>QR</strong>, reduciendo la
+              congestión del email y ordenando el flujo documental.
+            </p>
+            <div class="d-flex flex-wrap gap-3">
+              <a href="#que-es" class="btn btn-brand">Descubrir Copistat</a>
+              <a href="#funciona" class="btn btn-outline-brand"
+                >Ver funcionamiento</a
+              >
+            </div>
+
+            <div class="hero-visual">
+              <img
+                src="atender.png"
+                alt="Uso de Copistat en un mostrador de copistería con escaneo por móvil"
+              />
+              <p class="hero-visual-caption">
+                Copistat facilita el envío documental con una experiencia
+                rápida, visual y profesional.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-6" id="imagen">
+            <div class="registro-side">
+              <div class="form-logo-wrap">
+                <a href="https://joaisoft.es">
+                  <img
+                    src="logo2.png"
+                    alt="Logo de Copistat"
+                    class="form-logo"
+                  />
+                </a>
+              </div>
+
+              <div class="registro-embed">
+                <div class="registro-container">
+                  <div class="registro-info">
+                    <span class="badge-soft">Alta de servicio</span>
+                    <h2>Obtén Copista</h2>
+                    <p>
+                      Rellena el formulario y, en cuestión de segundos, tus
+                      clientes podrán empezar a enviarte documentos de forma
+                      rápida y sencilla. Compra nuestra tarjeta y facilita la
+                      recepción de documentación desde el primer momento.
+                    </p>
+                  </div>
+
+                  <div class="registro-card">
+                    <form
+                      id="registroForm"
+                      class="registro-form"
+                      action="https://joaisoft20250.app.n8n.cloud/webhook/216c1da7-f71d-4d4e-8dc8-1f3131785608"
+                      method="post"
+                    >
+                      <div class="form-group">
+                        <label for="nombre">Nombre completo</label>
+                        <input
+                          type="text"
+                          id="nombre"
+                          name="nombre"
+                          placeholder="Tu nombre"
+                          required
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="negocio">Nombre del negocio</label>
+                        <input
+                          type="text"
+                          id="negocio"
+                          name="negocio"
+                          placeholder="Nombre de tu empresa"
+                          required
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          placeholder="ejemplo@negocio.com"
+                          required
+                        />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="telefono">Número de teléfono</label>
+                        <input
+                          type="tel"
+                          id="telefono"
+                          name="telefono"
+                          placeholder="600 000 000"
+                          required
+                        />
+                      </div>
+
+                      <button type="submit" class="btn-registro" id="submitBtn">
+                        <span class="btn-loader"></span>
+                        <span class="btn-text">Empezar a usar Copistat</span>
+                      </button>
+
+                      <div class="tratamientoDatos">
+                        <p>
+                          Los datos en ningun momento se usarán para fines
+                          comerciales
+                        </p>
+                      </div>
+                      <div id="formFeedback" class="form-feedback"></div>
+                    </form>
+
+                    <div id="successBox" class="success-box" aria-hidden="true">
+                      <div class="success-content">
+                        <div class="checkmark-wrap">
+                          <svg
+                            class="checkmark"
+                            viewBox="0 0 72 72"
+                            aria-hidden="true"
+                          >
+                            <circle
+                              class="checkmark-circle"
+                              cx="36"
+                              cy="36"
+                              r="26"
+                            ></circle>
+                            <path
+                              class="checkmark-check"
+                              d="M22 37 L32 47 L50 27"
+                            ></path>
+                          </svg>
+                        </div>
+                        <h3>Formulario enviado correctamente</h3>
+                        <p>
+                          Hemos recibido tus datos. Compruebe el email, le hemos
+                          enviado la carpeta donde podrá empezar a trabajar.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="section" id="que-es">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">
+            Una solución clara para un problema diario
+          </h2>
+          <p class="section-subtitle">
+            Muchas empresas siguen gestionando impresiones y documentos por
+            email. Eso genera cadenas interminables, pérdida de tiempo y
+            bandejas de entrada saturadas. Copistat centraliza ese proceso de
+            forma simple.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-xl-3">
+            <article class="feature-card">
+              <div class="icon-wrap">01</div>
+              <h3>Menos correos</h3>
+              <p>
+                Reduce la congestión del correo electrónico evitando envíos
+                repetidos y desordenados.
+              </p>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-3">
+            <article class="feature-card">
+              <div class="icon-wrap">02</div>
+              <h3>Más rapidez</h3>
+              <p>
+                Los documentos se envían a impresión de forma ágil, directa y
+                sin pasos innecesarios.
+              </p>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-3">
+            <article class="feature-card">
+              <div class="icon-wrap">03</div>
+              <h3>Uso sencillo</h3>
+              <p>
+                La experiencia está pensada para que cualquier usuario pueda
+                utilizarla sin complicaciones.
+              </p>
+            </article>
+          </div>
+
+          <div class="col-md-6 col-xl-3">
+            <article class="feature-card">
+              <div class="icon-wrap">04</div>
+              <h3>Herramienta gratuita</h3>
+              <p>
+                Copistat nace para aportar eficiencia real sin añadir barreras
+                económicas al equipo.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="producto">
+      <div class="container">
+        <div class="producto-card">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-6">
+              <div class="producto-imagen-wrap">
+                <img
+                  src="tarjeta.png"
+                  alt="Tarjeta física Copistat con QR y sistema NFC"
+                  class="producto-imagen"
+                />
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <span class="producto-badge">Tarjeta física Copistat</span>
+              <h2 class="producto-title">
+                Compra tu tarjeta Copistat y empieza a usarla al instante
+              </h2>
+
+              <p class="producto-texto">
+                La tarjeta física de Copistat está diseñada para facilitar el
+                acceso al sistema mediante <strong>QR</strong> y
+                <strong>NFC</strong>, ofreciendo una experiencia rápida,
+                profesional y muy fácil de implantar en entornos de trabajo.
+              </p>
+
+              <ul class="producto-lista">
+                <li>Incluye identificación visual clara de la marca</li>
+                <li>Compatible con uso rápido mediante teléfono móvil</li>
+                <li>Ideal para copisterías, oficinas y puntos de atención</li>
+                <li>Instalación simple y uso inmediato</li>
+              </ul>
+
+              <div class="producto-precio-box">
+                <div>
+                  <div class="producto-precio-label">Precio por unidad</div>
+                  <div class="producto-precio">7,99 €</div>
+                </div>
+                <p class="producto-nota">
+                  Una solución física, accesible y profesional para integrar
+                  Copistat en tu negocio.
+                </p>
+              </div>
+
+              <div class="producto-acciones">
+                <a href="#contacto" class="btn btn-brand">Comprar ahora</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="funciona">
+      <div class="container">
+        <div class="row g-4 align-items-stretch">
+          <div class="col-lg-7">
+            <div class="mb-4">
+              <h2 class="section-title">Cómo funciona Copistat</h2>
+              <p class="section-subtitle m-0">
+                El proceso está diseñado para que el envío documental sea
+                directo, ordenado y fácil de seguir.
+              </p>
+            </div>
+
+            <div class="row g-4">
+              <div class="col-md-4">
+                <article class="step-card">
+                  <div class="step-number">1</div>
+                  <h3>Selecciona</h3>
+                  <p>
+                    El usuario prepara el documento que necesita imprimir o
+                    tramitar dentro del flujo de trabajo.
+                  </p>
+                </article>
+              </div>
+
+              <div class="col-md-4">
+                <article class="step-card">
+                  <div class="step-number">2</div>
+                  <h3>Escanea</h3>
+                  <p>
+                    Usa un código QR o introduce el identificador NFC para
+                    dirigir el envío correctamente.
+                  </p>
+                </article>
+              </div>
+
+              <div class="col-md-4">
+                <article class="step-card">
+                  <div class="step-number">3</div>
+                  <h3>Envía</h3>
+                  <p>
+                    La documentación llega al destino previsto sin necesidad de
+                    saturar el correo del equipo.
+                  </p>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <aside class="stats-box">
+              <h3>Beneficio operativo inmediato</h3>
+              <div class="stat-item">
+                <span>Flujo documental más limpio</span>
+                <strong>+</strong>
+              </div>
+              <div class="stat-item">
+                <span>Menos tiempo perdido buscando emails</span>
+                <strong>↓</strong>
+              </div>
+              <div class="stat-item">
+                <span>Eliminación de documentos en 3 minutos</span>
+                <strong>✓</strong>
+              </div>
+              <div class="stat-item">
+                <span>Mayor eficiencia en impresión</span>
+                <strong>24/7</strong>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ventajas">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Por qué elegir Copistat</h2>
+          <p class="section-subtitle">
+            Está enfocada en resolver una necesidad real del día a día:
+            gestionar documentos de forma práctica, profesional y ordenada.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <article class="benefit-card">
+              <div class="icon-wrap">A</div>
+              <h3>Optimiza el trabajo interno</h3>
+              <p>
+                Evita interrupciones innecesarias y permite que cada envío
+                documental siga un recorrido más claro.
+              </p>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <article class="benefit-card">
+              <div class="icon-wrap">B</div>
+              <h3>Mejora la organización</h3>
+              <p>
+                Centraliza una tarea repetitiva que normalmente se dispersa
+                entre mensajes y archivos adjuntos.
+              </p>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <article class="benefit-card">
+              <div class="icon-wrap">C</div>
+              <h3>Diseño pensado para empresas</h3>
+              <p>
+                Una interfaz limpia transmite orden, rapidez y confianza desde
+                el primer uso.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contacto">
+      <div class="container">
+        <div class="contacto-box">
+          <div class="contacto-intro">
+            <h2>Contacto</h2>
+            <p>
+              Si tienes cualquier duda sobre Copistat, quieres más información o
+              deseas contactar con nosotros, escríbenos y te responderemos lo
+              antes posible.
+            </p>
+          </div>
+
+          <div class="contacto-card">
+            <form
+              id="contactoForm"
+              class="contacto-form"
+              action="https://joaisoft20250.app.n8n.cloud/webhook/dd30ef18-9116-4cbf-aee6-ffb509df58bb"
+              method="post"
+            >
+              <div class="form-group">
+                <label for="contactoEmail">Nombre</label>
+                <input
+                  type="text"
+                  id="contactoEmail"
+                  name="email"
+                  placeholder="Tu Nombre"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="contactoEmail">Correo electrónico</label>
+                <input
+                  type="email"
+                  id="contactoEmail"
+                  name="email"
+                  placeholder="tuemail@mail.com"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="contactoMensaje">Mensaje</label>
+                <textarea
+                  id="contactoMensaje"
+                  name="mensaje"
+                  placeholder="Escribe aquí tu mensaje..."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="contacto-acciones">
+                <button
+                  type="submit"
+                  class="btn-registro"
+                  id="contactoSubmitBtn"
+                >
+                  <span class="btn-loader"></span>
+                  <span class="btn-text">Enviar mensaje</span>
+                </button>
+              </div>
+
+              <div id="contactoFeedback" class="form-feedback"></div>
+            </form>
+
+            <div id="contactoSuccessBox" class="success-box" aria-hidden="true">
+              <div class="success-content">
+                <div class="checkmark-wrap">
+                  <svg class="checkmark" viewBox="0 0 72 72" aria-hidden="true">
+                    <circle
+                      class="checkmark-circle"
+                      cx="36"
+                      cy="36"
+                      r="26"
+                    ></circle>
+                    <path
+                      class="checkmark-check"
+                      d="M22 37 L32 47 L50 27"
+                    ></path>
+                  </svg>
+                </div>
+                <h3>Mensaje enviado correctamente</h3>
+                <p>
+                  Hemos recibido tu mensaje. Te responderemos lo antes posible.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer-pro">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <div class="footer-logos">
+              <div class="footer-logo-box">
+                <img src="copistat2.png" alt="Logo de Copistat" />
+              </div>
+
+              <div class="footer-logo-box">
+                <a
+                  href="https://joaisoft.es"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src="logo.png" alt="Logo de Joaisoft" />
+                </a>
+              </div>
+            </div>
+
+            <h3>Copistat, un producto de Joaisoft</h3>
+            <p>
+              Copistat es una solución desarrollada por Joaisoft para modernizar
+              la gestión documental y facilitar el uso de tecnologías como QR y
+              NFC en entornos profesionales.
+            </p>
+          </div>
+
+          <div class="footer-links">
+            <h4>Navegación</h4>
+            <ul>
+              <li><a href="#inicio">Inicio</a></li>
+              <li><a href="#que-es">Qué es</a></li>
+              <li><a href="#producto">Tarjeta Copistat</a></li>
+              <li><a href="#funciona">Cómo funciona</a></li>
+              <li><a href="#ventajas">Ventajas</a></li>
+              <li><a href="#producto">Producto</a></li>
+              <li><a href="#contacto">Contacto</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-producto">
+            <h4>Desarrollo</h4>
+            <div class="footer-producto-card">
+              <p>
+                Este producto ha sido creado por <strong>Joaisoft</strong> como
+                parte de su línea de soluciones digitales para empresas,
+                negocios y proyectos tecnológicos.
+              </p>
+              <p style="margin-top: 0.9rem">
+                <a
+                  href="https://joaisoft.es"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Visitar joaisoft.es
+                </a>
+              </p>
+            </div>
           </div>
         </div>
 
-        <button type="submit" class="submit-btn">Enviar archivo</button>
-      </form>
+        <hr class="footer-divider" />
 
-      <div class="footer-note">
-        Este formulario envía los datos por POST con <strong>multipart/form-data</strong>.
+        <div class="footer-bottom">
+          <div>
+            © 2026 <strong>Copistat</strong>. Producto desarrollado por
+            <strong>Joaisoft</strong>.
+          </div>
+          <div>
+            Web oficial:
+            <a
+              href="https://joaisoft.es"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              joaisoft.es
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </footer>
 
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      const form = document.getElementById("registroForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const formFeedback = document.getElementById("formFeedback");
+      const successBox = document.getElementById("successBox");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        formFeedback.textContent = "";
+        formFeedback.className = "form-feedback";
+
+        submitBtn.disabled = true;
+        submitBtn.classList.add("loading");
+
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            throw new Error("No se pudo enviar el formulario");
+          }
+
+          form.classList.add("hidden");
+
+          setTimeout(() => {
+            successBox.classList.add("show");
+            successBox.setAttribute("aria-hidden", "false");
+          }, 250);
+
+          form.reset();
+        } catch (error) {
+          formFeedback.textContent =
+            "Ha ocurrido un error al enviar el formulario. Inténtalo de nuevo.";
+          formFeedback.classList.add("error");
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.classList.remove("loading");
+        }
+      });
+    </script>
+
+    <script>
+      const contactoForm = document.getElementById("contactoForm");
+      const contactoSubmitBtn = document.getElementById("contactoSubmitBtn");
+      const contactoFeedback = document.getElementById("contactoFeedback");
+      const contactoSuccessBox = document.getElementById("contactoSuccessBox");
+
+      contactoForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        contactoFeedback.textContent = "";
+        contactoFeedback.className = "form-feedback";
+
+        contactoSubmitBtn.disabled = true;
+        contactoSubmitBtn.classList.add("loading");
+
+        const formData = new FormData(contactoForm);
+
+        try {
+          const response = await fetch(contactoForm.action, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            throw new Error("No se pudo enviar el formulario de contacto");
+          }
+
+          contactoForm.classList.add("hidden");
+
+          setTimeout(() => {
+            contactoSuccessBox.classList.add("show");
+            contactoSuccessBox.setAttribute("aria-hidden", "false");
+          }, 250);
+
+          contactoForm.reset();
+        } catch (error) {
+          contactoFeedback.textContent =
+            "Ha ocurrido un error al enviar el mensaje. Inténtalo de nuevo.";
+          contactoFeedback.classList.add("error");
+        } finally {
+          contactoSubmitBtn.disabled = false;
+          contactoSubmitBtn.classList.remove("loading");
+        }
+      });
+    </script>
+  </body>
 </html>
